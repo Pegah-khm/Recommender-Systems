@@ -1,0 +1,4 @@
+Given the large volume of data and the computational constraints for applying deep learning models, significant data reduction was necessary. This was achieved through several steps:
+•	Feature Removal: Unnecessary features such as timestamps, actor names, and country of origin, which do not influence the recommendation outcomes for this study, were removed.
+•	Handling Incomplete Data: Movies lacking director information or having insufficient IMDb and Rotten Tomatoes scores (less than 4) or IMDb votes (less than 1000), were excluded.
+•	Filtering Sparse Data: To focus on more robust datasets, movies with fewer than 400 ratings and less active users were removed. This step helps in mitigating the sparsity of the data and focuses the model on more reliable user-movie interactions.
