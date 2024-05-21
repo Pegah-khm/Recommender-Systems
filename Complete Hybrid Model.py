@@ -98,11 +98,10 @@ output = Dense(1, activation='linear')(x)
 
 model = Model(inputs=[user_features_input, genre_input, director_input, rotten_tomatoes_input, imdb_rating_input,
                       imdb_voting_input], outputs=output)
-model.compile(optimizer=Adam(learning_rate=0.0001), loss='mean_squared_error', metrics=['MAE', RootMeanSquaredError(name='RMSE')])
-0
+model.compile(optimizer=Adam(learning_rate=0.00003), loss='mean_squared_error', metrics=['MAE', RootMeanSquaredError(name='RMSE')])
+
 # Setup checkpoints and early stopping
-checkpoint = ModelCheckpoint('Results/Models/Complete_Hybrid_Model_Run01.keras', monitor='val_loss',
-                             save_best_only=True, verbose=1)
+checkpoint = ModelCheckpoint('Results/Models/Complete_Hybrid_Model_Run01.keras', monitor='val_loss', save_best_only=True, verbose=1)
 early_stopping = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True, verbose=1)
 
 # Train the model
@@ -110,7 +109,7 @@ history = model.fit(
     [X_train, genre_train, director_train, rotten_tomatoes_train, imdb_rating_train, imdb_voting_train], y_train,
     validation_data=(
         [X_test, genre_test, director_test, rotten_tomatoes_test, imdb_rating_test, imdb_voting_test], y_test),
-    epochs=150,
+    epochs=100,
     batch_size=64,
     callbacks=[checkpoint, early_stopping]
 )
@@ -163,7 +162,7 @@ plt.xlabel('Epoch')
 plt.legend()
 plt.show()
 
-# New steps to select 5 random users and recommend top 10 movies
+# Steps to select 5 random users and recommend top 10 movies
 # Step 1: Select 5 Random Users
 random_users = random.sample(list(merged_df['userId'].unique()), 5)
 
